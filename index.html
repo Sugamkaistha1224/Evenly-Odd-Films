@@ -526,7 +526,201 @@
     <div class="scroll-to-top" id="scrollToTop">
         <i class="fas fa-arrow-up"></i>
     </div>
+<!-- AI Chat Widget -->
+<style>
+#aiChatButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #ff5400;
+    color: #fff;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
+#aiChatWidget {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 350px;
+    max-height: 500px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+}
+
+#aiChatHeader {
+    background: #ff5400;
+    color: #fff;
+    padding: 10px 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#aiChatBody {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#aiChatMessages {
+    margin-bottom: 10px;
+}
+
+.aiMessage {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.userMessage {
+    background: #ff5400;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.botMessage {
+    background: #f1f1f1;
+    color: #333;
+    align-self: flex-start;
+}
+
+#aiChatInput {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+#aiChatInput input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+#aiChatInput button {
+    padding: 0 15px;
+    background: #ff5400;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#aiChatSuggestions {
+    margin-bottom: 10px;
+}
+
+.aiSuggestion {
+    background: #eee;
+    border: none;
+    border-radius: 12px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+</style>
+
+<div id="aiChatWidget">
+    <div id="aiChatHeader">
+        <span>AI Assistant</span>
+        <button id="aiChatClose">&times;</button>
+    </div>
+    <div id="aiChatBody">
+        <div id="aiChatMessages"></div>
+        <div id="aiChatSuggestions">
+            <button class="aiSuggestion">Tell me about your services</button>
+            <button class="aiSuggestion">Show me your portfolio</button>
+            <button class="aiSuggestion">How can I contact you?</button>
+        </div>
+    </div>
+    <div id="aiChatInput">
+        <input type="text" id="aiMessageInput" placeholder="Type a message..." />
+        <button id="aiSendBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<!-- Floating Chat Button -->
+<div id="aiChatButton">
+    <i class="fas fa-robot"></i>
+</div>
+<script> 
+// Toggle chat popup
+const aiChatButton = document.getElementById("aiChatButton");
+const aiChatWidget = document.getElementById("aiChatWidget");
+const aiChatClose = document.getElementById("aiChatClose");
+const aiSendBtn = document.getElementById("aiSendBtn");
+const aiMessageInput = document.getElementById("aiMessageInput");
+const aiChatMessages = document.getElementById("aiChatMessages");
+const aiSuggestions = document.querySelectorAll(".aiSuggestion");
+
+aiChatButton.addEventListener("click", () => aiChatWidget.style.display = "flex");
+aiChatClose.addEventListener("click", () => aiChatWidget.style.display = "none");
+
+// Send message
+aiSendBtn.addEventListener("click", sendMessage);
+aiMessageInput.addEventListener("keypress", (e) => { if(e.key === "Enter") sendMessage(); });
+
+// Suggestion buttons
+aiSuggestions.forEach(btn => {
+    btn.addEventListener("click", () => {
+        aiMessageInput.value = btn.textContent;
+        sendMessage();
+    });
+});
+
+// Display message
+function appendMessage(message, sender) {
+    const div = document.createElement("div");
+    div.classList.add("aiMessage", sender === "user" ? "userMessage" : "botMessage");
+    div.textContent = message;
+    aiChatMessages.appendChild(div);
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+}
+
+// Send user message and call Google AI API
+async function sendMessage() {
+    const message = aiMessageInput.value.trim();
+    if(!message) return;
+    appendMessage(message, "user");
+    aiMessageInput.value = "";
+
+    // Call Google AI API
+    try {
+        const response = await fetch("https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=AIzaSyDh1K9369uwVHH43Bve97a02ymxhNGqshs", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                prompt: message,
+                temperature: 0.7,
+                candidateCount: 1,
+                maxOutputTokens: 500
+            })
+        });
+        const data = await response.json();
+        const aiText = data?.candidates?.[0]?.output || "Sorry, I couldn't generate a response.";
+        appendMessage(aiText, "bot");
+    } catch (err) {
+        console.error(err);
+        appendMessage("Oops! Something went wrong. Try again later.", "bot");
+    }
+}
+
+</script>
     <!-- JavaScript -->
     <script src="script.js"></script>
 </body>

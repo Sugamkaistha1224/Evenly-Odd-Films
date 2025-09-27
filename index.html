@@ -278,39 +278,35 @@
         </div>
     </section>
 <style>
-/* Default: Desktop view */
-.about-content {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
+/* Default: show desktop version, hide mobile inline image */
+.mobile-founder-img {
+  display: none;
+}
+.desktop-founder-img {
+  display: block;
 }
 
-.about-description {
-    flex: 2;
-}
-
-.about-right {
-    flex: 1;
-}
-
-/* Mobile view */
+/* On mobile (e.g., below 768px), switch visibility */
 @media (max-width: 768px) {
-    .about-content {
-        flex-direction: column;
-    }
+  .mobile-founder-img {
+    display: block;
+    margin: 1rem 0;
+    text-align: center;
+  }
 
-    /* Move the founder image before the description */
-    .about-right {
-        order: -1;
-        margin-bottom: 1.5rem;
-        text-align: center;
-    }
+  .mobile-founder-img img {
+    max-width: 250px;
+    border-radius: 15px;
+  }
 
-    .about-right img {
-        max-width: 250px;
-        width: 100%;
-        border-radius: 15px;
-    }
+  .desktop-founder-img {
+    display: none;
+  }
+
+  /* Stack description and image properly */
+  .about-content {
+    display: block;
+  }
 }
 
 </style>
@@ -329,17 +325,16 @@
                     <p>We believe in taking challenges and risks with our films because that gives the best results and a new cinema is born. The best work comes from passion and collaboration and our team consists of passionate people who believes in creating a cinematic experience film.</p>
                     
 <h3 style="color: #ff5400; font-size: 1.5rem; margin: 2rem 0 1rem 0; font-weight: 700;">
-  About the Founder:
-</h3>
+      About the Founder:
+    </h3>
 
-<!-- Mobile-only inline founder image -->
-<div class="about-image founder-image-container mobile-founder-img">
-  <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
-</div>
+    <!-- Mobile-only inline founder image -->
+    <div class="about-image founder-image-container mobile-founder-img">
+      <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
+    </div>
 
-<p>
-  Hardik Soni, founder of Evenly Odd Films, is a young passionate filmmaker who believes in creating unique set of films...
-</p>
+    <p>Hardik Soni, founder of Evenly Odd Films, is a young passionate filmmaker who believes in creating unique set of films which will contribute to the society. He is a Director, Actor, Editor, Writer, and Producer. He has 5+ years of experience in editing, 3+ years of experience in acting, 2+ years of experience in film direction, and 1+ Years of experience in writing.</p>
+
 
 
                     
@@ -348,11 +343,12 @@
                     <p>He is going to release his debut feature film in next year.</p>
                 </div>
                 
-                <div class="about-right">
-                    <div class="about-image founder-image-container">
-                        <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
-                    </div>
-                </div>
+               <!-- Desktop-only right-side image -->
+  <div class="about-right">
+    <div class="about-image founder-image-container desktop-founder-img">
+      <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
+    </div>
+  </div>
             </div>
             
             <div class="about-video">

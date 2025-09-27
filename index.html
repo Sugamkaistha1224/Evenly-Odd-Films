@@ -285,41 +285,54 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: auto;              /* no extra blank space */
+  height: auto;              /* remove extra blank box */
   max-width: 100%;
   margin: 0 auto;
 }
 
 .about-image.founder-image-container img {
   width: 100%;
-  max-width: 350px;          /* desktop max size */
-  height: auto;              /* keep aspect ratio */
+  max-width: 350px;          /* desktop size */
+  height: auto;
   border-radius: 15px;
   object-fit: cover;
   display: block;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* optional subtle shadow */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* Hide mobile inline image by default */
+/* By default hide inline founder image */
 .mobile-founder-img {
   display: none;
 }
-
-/* Show desktop image normally */
 .desktop-founder-img {
   display: block;
+}
+
+/* ============================= */
+/* About Content Layout - Desktop */
+/* ============================= */
+.about-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* text 2/3, image 1/3 */
+  gap: 2rem;
+  align-items: flex-start;
 }
 
 /* ============================= */
 /* Responsive Adjustments - Mobile */
 /* ============================= */
 @media (max-width: 768px) {
-  /* Hide desktop side image */
+  /* Stack everything */
+  .about-content {
+    display: block;
+  }
+
+  /* Hide side image */
   .desktop-founder-img {
     display: none;
   }
 
-  /* Show inline founder image */
+  /* Show inline image */
   .mobile-founder-img {
     display: block;
     margin: 1rem auto;
@@ -327,12 +340,7 @@
   }
 
   .mobile-founder-img img {
-    max-width: 250px;        /* smaller size for mobile */
-  }
-
-  /* Stack about section vertically */
-  .about-content {
-    display: block;
+    max-width: 250px;
   }
 }
 

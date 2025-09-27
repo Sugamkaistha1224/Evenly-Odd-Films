@@ -278,72 +278,49 @@
         </div>
     </section>
 <style>
-/* ============================= */
-/* Founder Image Styling - Shared */
-/* ============================= */
-.about-image.founder-image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;              /* remove extra blank box */
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.about-image.founder-image-container img {
-  width: 100%;
-  max-width: 350px;          /* desktop size */
-  height: auto;
-  border-radius: 15px;
-  object-fit: cover;
-  display: block;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* By default hide inline founder image */
+/* Hide mobile image on desktop */
 .mobile-founder-img {
-  display: none;
-}
-.desktop-founder-img {
-  display: block;
-}
-
-/* ============================= */
-/* About Content Layout - Desktop */
-/* ============================= */
-.about-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr; /* text 2/3, image 1/3 */
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-/* ============================= */
-/* Responsive Adjustments - Mobile */
-/* ============================= */
-@media (max-width: 768px) {
-  /* Stack everything */
-  .about-content {
-    display: block;
-  }
-
-  /* Hide side image */
-  .desktop-founder-img {
     display: none;
-  }
-
-  /* Show inline image */
-  .mobile-founder-img {
-    display: block;
-    margin: 1rem auto;
-    text-align: center;
-  }
-
-  .mobile-founder-img img {
-    max-width: 250px;
-  }
 }
 
+/* Desktop side image visible by default */
+.desktop-founder-img {
+    display: block;
+}
+
+/* Mobile view */
+@media screen and (max-width: 768px) {
+    /* Show mobile inline image */
+    .mobile-founder-img {
+        display: block;
+        margin: 1rem 0;
+        text-align: center;
+    }
+
+    .mobile-founder-img img {
+        width: 150px; /* Adjust size for mobile */
+        border-radius: 10px;
+    }
+
+    /* Hide desktop side image */
+    .desktop-founder-img {
+        display: none;
+    }
+
+    /* Stack description content vertically */
+    .about-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-description {
+        order: 1;
+    }
+
+    .about-right {
+        order: 2; /* ensures any other right-side content comes after text */
+    }
+}
 
 </style>
     <!-- About Section -->
@@ -361,13 +338,14 @@
                     <p>We believe in taking challenges and risks with our films because that gives the best results and a new cinema is born. The best work comes from passion and collaboration and our team consists of passionate people who believes in creating a cinematic experience film.</p>
                     
 <h3 style="color: #ff5400; font-size: 1.5rem; margin: 2rem 0 1rem 0; font-weight: 700;">
-      About the Founder:
-    </h3>
+    About the Founder:
+</h3>
 
-    <!-- Mobile-only inline founder image -->
-    <div class="about-image founder-image-container mobile-founder-img">
-      <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
-    </div>
+<!-- Mobile-only inline founder image -->
+<div class="about-image founder-image-container mobile-founder-img">
+    <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
+</div>
+
 
     <p>Hardik Soni, founder of Evenly Odd Films, is a young passionate filmmaker who believes in creating unique set of films which will contribute to the society. He is a Director, Actor, Editor, Writer, and Producer. He has 5+ years of experience in editing, 3+ years of experience in acting, 2+ years of experience in film direction, and 1+ Years of experience in writing.</p>
 
@@ -380,12 +358,11 @@
                 </div>
                 
                <!-- Desktop-only right-side image -->
-  <div class="about-right">
+<div class="about-right">
     <div class="about-image founder-image-container desktop-founder-img">
-      <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
+        <img src="Logo/p11.png" alt="Hardik Soni - Founder of Evenly Odd Films" class="person-image founder-image">
     </div>
-  </div>
-            </div>
+</div>  </div>
             
             <div class="about-video">
                 <div class="video-container">

@@ -278,36 +278,64 @@
         </div>
     </section>
 <style>
-/* Default: show desktop version, hide mobile inline image */
+/* ============================= */
+/* Founder Image Styling - Shared */
+/* ============================= */
+.about-image.founder-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;              /* no extra blank space */
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.about-image.founder-image-container img {
+  width: 100%;
+  max-width: 350px;          /* desktop max size */
+  height: auto;              /* keep aspect ratio */
+  border-radius: 15px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* optional subtle shadow */
+}
+
+/* Hide mobile inline image by default */
 .mobile-founder-img {
   display: none;
 }
+
+/* Show desktop image normally */
 .desktop-founder-img {
   display: block;
 }
 
-/* On mobile (e.g., below 768px), switch visibility */
+/* ============================= */
+/* Responsive Adjustments - Mobile */
+/* ============================= */
 @media (max-width: 768px) {
-  .mobile-founder-img {
-    display: block;
-    margin: 1rem 0;
-    text-align: center;
-  }
-
-  .mobile-founder-img img {
-    max-width: 250px;
-    border-radius: 15px;
-  }
-
+  /* Hide desktop side image */
   .desktop-founder-img {
     display: none;
   }
 
-  /* Stack description and image properly */
+  /* Show inline founder image */
+  .mobile-founder-img {
+    display: block;
+    margin: 1rem auto;
+    text-align: center;
+  }
+
+  .mobile-founder-img img {
+    max-width: 250px;        /* smaller size for mobile */
+  }
+
+  /* Stack about section vertically */
   .about-content {
     display: block;
   }
 }
+
 
 </style>
     <!-- About Section -->
